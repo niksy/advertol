@@ -87,14 +87,14 @@ module.exports = function ( baseConfig ) {
 				rules: [
 					{
 						test: /\.js$/,
-						exclude: /node_modules/,
+						exclude: /(node_modules|advertol-core)/,
 						use: [{
 							loader: 'babel-loader'
 						}]
 					},
 					{
 						test: /\.js$/,
-						exclude: /(node_modules|test)/,
+						exclude: /(node_modules|test|advertol-core)/,
 						enforce: 'post',
 						use: [{
 							loader: 'istanbul-instrumenter-loader',
