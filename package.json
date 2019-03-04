@@ -1,0 +1,38 @@
+{
+  "name": "advertol",
+  "description": "Advertisement zones manager.",
+  "private": true,
+  "author": "Ivan Nikolić <niksy5@gmail.com> (http://ivannikolic.com)",
+  "license": "MIT",
+  "scripts": {
+    "bootstrap": "lerna bootstrap --hoist",
+    "postinstall": "npm run bootstrap",
+    "test": "lerna run test --stream",
+    "clean": "lerna clean && npm install",
+    "release": "lerna version --no-changelog && lerna publish from-package",
+    "release:clean": "npm run clean && npm run release",
+    "release:test": "npm test && npm run release",
+    "release:clean:test": "npm run clean && npm test && npm run release"
+  },
+  "devDependencies": {
+    "lerna": "^3.13.1"
+  },
+  "engines": {
+    "node": ">=8"
+  },
+  "keywords": [
+    "ads",
+    "advertisement",
+    "banners",
+    "manager",
+    "zones"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/niksy/advertol.git"
+  },
+  "bugs": {
+    "url": "https://github.com/niksy/advertol/issues"
+  },
+  "homepage": "https://github.com/niksy/advertol#readme"
+}
