@@ -93,8 +93,8 @@ For automated tests, run `npm run test:automated` (append `:watch` for watcher s
 
 MIT © [Ivan Nikolić](http://ivannikolic.com)
 
-[ci]: https://travis-ci.com/niksy/service-google-dfp
-[ci-img]: https://travis-ci.com/niksy/service-google-dfp.svg?branch=master
+[ci]: https://travis-ci.com/niksy/advertol
+[ci-img]: https://travis-ci.com/niksy/advertol.svg?branch=master
 [browserstack]: https://www.browserstack.com/
 [browserstack-img]: https://www.browserstack.com/automate/badge.svg?badge_key=OEoyeTlOV05LL25aemN4WU5kN3VGQzBFT3lrc0FZcjhSeDJNS0hwWDU5RT0tLTI3blFyU3d2a3dCT2xGb1NBczZtVXc9PQ==--e720201c13e584cd0b47e31366072e08d7d87710
 [googletag-define-slot]: https://developers.google.com/doubleclick-gpt/reference#googletag.defineSlot

@@ -60,8 +60,8 @@ For automated tests, run `npm run test:automated` (append `:watch` for watcher s
 
 MIT © [Ivan Nikolić](http://ivannikolic.com)
 
-[ci]: https://travis-ci.com/niksy/context-media-query
-[ci-img]: https://travis-ci.com/niksy/context-media-query.svg?branch=master
+[ci]: https://travis-ci.com/niksy/advertol
+[ci-img]: https://travis-ci.com/niksy/advertol.svg?branch=master
 [browserstack]: https://www.browserstack.com/
 [browserstack-img]: https://www.browserstack.com/automate/badge.svg?badge_key=ZXVsVDVhem9zZmNjQWVKV2ZvZUtiK1RCZlA2ajg2dDZmOTVIV0tZck5Xdz0tLTRQVkRYcVVPWU8xK0lJR3o3Z1gzUEE9PQ==--24a91b3152c00c01a8af853126eaf873886db782
 [media-queries]: https://developer.mozilla.org/en-US/docs/Web/CSS/Media_Queries/Using_media_queries
