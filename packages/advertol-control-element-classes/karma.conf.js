@@ -87,7 +87,7 @@ module.exports = function ( baseConfig ) {
 				rules: [
 					{
 						test: /\.js$/,
-						exclude: /node_modules/,
+						exclude: /(node_modules|advertol-core)/,
 						use: [{
 							loader: 'babel-loader'
 						}]

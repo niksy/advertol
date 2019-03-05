@@ -7,7 +7,7 @@
   "scripts": {
     "bootstrap": "lerna bootstrap --hoist",
     "postinstall": "npm run bootstrap",
-    "test": "lerna run test",
+    "test": "lerna run build && lerna run test",
     "clean": "lerna clean && npm install",
     "release": "lerna version --no-changelog && printf \"\\n\\n\\nRun 'NPM_CONFIG_OTP=123456 npx lerna publish from-package'\\n\\n\\n\"",
     "release:clean": "npm run clean && npm run release",
