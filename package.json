@@ -9,7 +9,7 @@
     "postinstall": "npm run bootstrap",
     "test": "lerna run test --stream",
     "clean": "lerna clean && npm install",
-    "release": "lerna version --no-changelog && printf \"\\n\\n\\nRun 'NPM_CONFIG_OTP=123456 lerna publish from-package'\\n\\n\\n\"",
+    "release": "lerna version --no-changelog && printf \"\\n\\n\\nRun 'NPM_CONFIG_OTP=123456 npx lerna publish from-package'\\n\\n\\n\"",
     "release:clean": "npm run clean && npm run release",
     "release:test": "npm test && npm run release",
     "release:clean:test": "npm run clean && npm test && npm run release"
