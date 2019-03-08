@@ -1,17 +1,37 @@
 import { Control } from '@advertol/core';
 
-function addClass ( element, className ) {
-	if ( className === '' ) {
+/**
+ * @param  {HTMLElement} element
+ * @param  {string} className
+ * @param  {string} action
+ */
+function manipulateWithClasses ( element, className, action ) {
+	if ( className.trim() === '' ) {
 		return;
 	}
-	element.classList.add(className);
+	className
+		.split(' ')
+		.map(( str ) => str.trim())
+		.filter(( str ) => str !== '')
+		.forEach(( str ) => {
+			element.classList[action](str);
+		});
 }
 
+/**
+ * @param {HTMLElement} element
+ * @param {string} className
+ */
+function addClass ( element, className ) {
+	manipulateWithClasses(element, className, 'add');
+}
+
+/**
+ * @param {HTMLElement} element
+ * @param {string} className
+ */
 function removeClass ( element, className ) {
-	if ( className === '' ) {
-		return;
-	}
-	element.classList.remove(className);
+	manipulateWithClasses(element, className, 'remove');
 }
 
 class ElementClassesControl extends Control {
