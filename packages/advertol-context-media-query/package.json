@@ -1,6 +1,6 @@
 {
   "name": "@advertol/context-media-query",
-  "version": "1.0.0-alpha.0",
+  "version": "1.0.1-alpha.0",
   "description": "Control zone visibility with CSS media query listeners.",
   "main": "index.cjs.js",
   "module": "index.esm.js",
