@@ -10,7 +10,7 @@ When control is added to Advertol instance, it is bound to that instance. If you
 
 ## API
 
-### shouldTriggerControl({ element, id[, isEmpty] })
+### shouldTriggerControl({ element, id, isEmpty })
 
 Returns: `Promise<boolean>`
 
@@ -24,7 +24,7 @@ After `Promise` is resolved, its value is cached for zone ID and it won’t exec
 | `id` | `string` | Zone ID. |
 | `isEmpty` | `boolean` | Is zone response empty. |
 
-### afterZoneLoad({ element, id[, isEmpty] })
+### afterZoneLoad({ element, id, isEmpty })
 
 Returns: `Promise<*>`
 
@@ -38,7 +38,7 @@ After `Promise` is resolved, its value is cached for zone ID and it won’t exec
 | `id` | `string` | Zone ID. |
 | `isEmpty` | `boolean` | Is zone response empty. |
 
-### onZoneShow({ element, id, loadResult[, isEmpty] })
+### onZoneShow({ element, id, loadResult, isEmpty })
 
 Lifecycle hook triggered when zone is visible.
 
@@ -46,10 +46,10 @@ Lifecycle hook triggered when zone is visible.
 | --- | --- | --- |
 | `element` | `HTMLElement` | Zone DOM element. |
 | `id` | `string` | Zone ID. |
-| `loadResult` | `Promise` | Load result as `Promise` returned from `afterZoneLoad` hook. |
+| `loadResult` | `*` | `Promise` load result returned from `afterZoneLoad` hook. |
 | `isEmpty` | `boolean` | Is zone response empty. |
 
-### onZoneHide({ element, id, loadResult[, isEmpty] })
+### onZoneHide({ element, id, loadResult, isEmpty })
 
 Lifecycle hook triggered when zone is hidden.
 
@@ -57,10 +57,10 @@ Lifecycle hook triggered when zone is hidden.
 | --- | --- | --- |
 | `element` | `HTMLElement` | Zone DOM element. |
 | `id` | `string` | Zone ID. |
-| `loadResult` | `Promise` | Load result as `Promise` returned from `afterZoneLoad` hook. |
+| `loadResult` | `*` | `Promise` load result returned from `afterZoneLoad` hook. |
 | `isEmpty` | `boolean` | Is zone response empty. |
 
-### destroy({ element, id, loadResult[, isEmpty] })
+### destroy({ element, id, loadResult, isEmpty })
 
 Lifecycle hook triggered when zone control is destroyed.
 
@@ -68,7 +68,7 @@ Lifecycle hook triggered when zone control is destroyed.
 | --- | --- | --- |
 | `element` | `HTMLElement` | Zone DOM element. |
 | `id` | `string` | Zone ID. |
-| `loadResult` | `Promise` | Load result as `Promise` returned from `afterZoneLoad` hook. |
+| `loadResult` | `*` | `Promise` load result returned from `afterZoneLoad` hook. |
 | `isEmpty` | `boolean` | Is zone response empty. |
 
 ## Usage
