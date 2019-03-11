@@ -1,6 +1,6 @@
 {
   "name": "@advertol/control-element-classes",
-  "version": "1.1.0-alpha.0",
+  "version": "1.1.1-alpha.0",
   "description": "Add HTML classes to zone elements based on zone state.",
   "main": "index.cjs.js",
   "module": "index.esm.js",
@@ -26,7 +26,7 @@
     "test:automated:watch": "npm run test:automated -- --auto-watch --no-single-run"
   },
   "dependencies": {
-    "@advertol/core": "^1.0.0-alpha.0"
+    "@advertol/core": "^1.0.1-alpha.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.2.3",

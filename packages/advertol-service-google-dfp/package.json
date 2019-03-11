@@ -1,6 +1,6 @@
 {
   "name": "@advertol/service-google-dfp",
-  "version": "1.0.1-alpha.0",
+  "version": "1.0.2-alpha.0",
   "description": "Google DFP/Ad Manager service.",
   "main": "index.cjs.js",
   "module": "index.esm.js",
@@ -26,7 +26,7 @@
     "test:automated:watch": "npm run test:automated -- --auto-watch --no-single-run"
   },
   "dependencies": {
-    "@advertol/core": "^1.0.0-alpha.0"
+    "@advertol/core": "^1.0.1-alpha.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.2.3",
