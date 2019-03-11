@@ -5,6 +5,7 @@ class GoogleDfpService extends Service {
 	constructor ( options = {} ) {
 		super();
 
+		this.slots = {};
 		this.filledZoneCallbacks = {};
 		this.emptyZoneCallbacks = {};
 		this.resolvedSlots = {};
@@ -14,13 +15,16 @@ class GoogleDfpService extends Service {
 		this.displayedZones = [];
 
 		const {
-			slots = {},
+			zones = [],
 			onSetup = () => {},
 			refreshZones = this.refreshZones
 		} = options;
 
 		this.refreshZones = refreshZones.bind(this);
-		this.slots = slots;
+
+		zones.forEach(({ id, slot }) => {
+			this.addZone({ id, slot });
+		});
 
 		/* istanbul ignore next */
 		this.cmd(() => {
@@ -29,6 +33,17 @@ class GoogleDfpService extends Service {
 			this.setupEvents();
 		});
 
+	}
+
+	/**
+	 * @param {string}   id
+	 * @param {Function} callback
+	 */
+	addZone ({ id, slot }) {
+		if ( id in this.slots ) {
+			return;
+		}
+		this.slots[id] = slot;
 	}
 
 	/**

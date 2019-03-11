@@ -36,9 +36,10 @@ const instance = advertol({
 	// …
 	service: [
 		new GoogleDfpService({
-			slots: {
-				'becky': () => window.googletag.defineSlot('/0/becky', ['fluid'], 'zone-becky').addService(window.googletag.pubads())
-			}
+			zones: [{
+				id: 'becky',
+				slot: () => window.googletag.defineSlot('/0/becky', ['fluid'], 'zone-becky').addService(window.googletag.pubads())
+			}]
 		})
 	]
 });
@@ -50,16 +51,16 @@ instance.resolve();
 
 ### googleDfpService({ slots, onSetup, refreshZones })
 
-#### slots
+#### zones
 
-Type: `Object`
+Type: `Object[]`
 
-Service slots.
+List of zones with their slot callback.
 
-Each object property has:
-
-* Key, which is zone ID
-* Value, which is function which returns [`googletag.defineSlot`][googletag-define-slot] or [`googletag.defineOutOfPageSlot`][googletag-define-outofpage-slot] instance
+| Property | Type | Description |
+| --- | --- | --- |
+| `slot` | `Function` | Function which returns [`googletag.defineSlot`][googletag-define-slot] or [`googletag.defineOutOfPageSlot`][googletag-define-outofpage-slot] instance. |
+| `id` | `string` | Zone ID. |
 
 #### onSetup
 
@@ -80,6 +81,15 @@ By default, it calls [`refresh`][googletag-refresh] method.
 Type: `googletag.Slot[]`
 
 List of slots to refresh.
+
+### instance.addZone({ slot, id })
+
+Add new zone with slot callback.
+
+| Property | Type | Description |
+| --- | --- | --- |
+| `slot` | `Function` | Function which returns [`googletag.defineSlot`][googletag-define-slot] or [`googletag.defineOutOfPageSlot`][googletag-define-outofpage-slot] instance. |
+| `id` | `string` | Zone ID. |
 
 ## Browser support
 

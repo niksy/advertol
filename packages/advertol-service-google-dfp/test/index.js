@@ -17,11 +17,12 @@ it('should properly implement service', async function () {
 		element: document.querySelector('.becky')
 	}];
 
-	const slots = {
-		'becky': () => 'becky'
-	};
+	const slots = [{
+		id: 'becky',
+		slot: () => 'becky'
+	}];
 
-	const service = new Service({ slots });
+	const service = new Service({ zones: slots });
 
 	sinon.stub(service, 'cmd').callsFake(( callback ) => callback());
 	sinon.stub(service, 'setupService').callsFake(() => {});
