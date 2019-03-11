@@ -1,8 +1,8 @@
 class Control {
 
 	constructor () {
-		this._triggerResultsCache = {};
-		this._loadResultsCache = {};
+		this._shouldTriggerControlCache = {};
+		this._onInitialControlTriggerCache = {};
 	}
 
 	/**
@@ -25,7 +25,7 @@ class Control {
 	 *
 	 * @return {Promise<*>}
 	 */
-	afterZoneLoad () {
+	onInitialControlTrigger () {
 		return Promise.resolve();
 	}
 
@@ -33,7 +33,7 @@ class Control {
 	 * @param  {Object} options
 	 * @param  {HTMLElement} options.element
 	 * @param  {string} options.id
-	 * @param  {Promise} options.loadResult
+	 * @param  {*} options.initialControlTriggerResult
 	 * @param  {boolean} [options.isEmpty]
 	 */
 	onZoneShow () {
@@ -44,7 +44,7 @@ class Control {
 	 * @param  {Object} options
 	 * @param  {HTMLElement} options.element
 	 * @param  {string} options.id
-	 * @param  {Promise} options.loadResult
+	 * @param  {*} options.initialControlTriggerResult
 	 * @param  {boolean} [options.isEmpty]
 	 */
 	onZoneHide () {
@@ -55,7 +55,7 @@ class Control {
 	 * @param  {Object} options
 	 * @param  {HTMLElement} options.element
 	 * @param  {string} options.id
-	 * @param  {Promise} options.loadResult
+	 * @param  {*} options.initialControlTriggerResult
 	 * @param  {boolean} [options.isEmpty]
 	 */
 	destroy () {

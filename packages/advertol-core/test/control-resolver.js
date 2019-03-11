@@ -15,7 +15,7 @@ function setup ( options = {} ) {
 	} = options;
 
 	const shouldTriggerControlSpy = sinon.spy();
-	const afterZoneLoadSpy = sinon.spy();
+	const onInitialControlTriggerSpy = sinon.spy();
 	const onZoneShowSpy = sinon.spy();
 	const onZoneHideSpy = sinon.spy();
 	const destroySpy = sinon.spy();
@@ -30,8 +30,8 @@ function setup ( options = {} ) {
 			shouldTriggerControlSpy(...args);
 			return shouldTriggerControl;
 		}
-		async afterZoneLoad (...args) {
-			afterZoneLoadSpy(...args);
+		async onInitialControlTrigger (...args) {
+			onInitialControlTriggerSpy(...args);
 			return {};
 		}
 		onZoneShow ( ...args ) {
@@ -58,7 +58,7 @@ function setup ( options = {} ) {
 		zones,
 		controlResolver,
 		shouldTriggerControlSpy,
-		afterZoneLoadSpy,
+		onInitialControlTriggerSpy,
 		onZoneShowSpy,
 		onZoneHideSpy,
 		destroySpy,
@@ -106,12 +106,12 @@ describe('ControlResolver', function () {
 
 	});
 
-	it('should cache `afterZoneLoad` calls', async function () {
+	it('should cache `onInitialControlTrigger` calls', async function () {
 
 		const {
 			zone,
 			controlResolver,
-			afterZoneLoadSpy,
+			onInitialControlTriggerSpy,
 			teardown
 		} = setup({ shouldTriggerControl: true });
 
@@ -123,7 +123,7 @@ describe('ControlResolver', function () {
 			controlResolver.resolve(zone)
 		]);
 
-		assert.equal(afterZoneLoadSpy.callCount, 0);
+		assert.equal(onInitialControlTriggerSpy.callCount, 0);
 
 		zone.setAsLoaded();
 
@@ -133,7 +133,7 @@ describe('ControlResolver', function () {
 			controlResolver.resolve(zone)
 		]);
 
-		assert.equal(afterZoneLoadSpy.callCount, 1);
+		assert.equal(onInitialControlTriggerSpy.callCount, 1);
 
 		teardown();
 
@@ -147,7 +147,7 @@ describe('ControlResolver', function () {
 			zone,
 			controlResolver,
 			shouldTriggerControlSpy,
-			afterZoneLoadSpy,
+			onInitialControlTriggerSpy,
 			onZoneShowSpy,
 			onZoneHideSpy,
 			teardown
@@ -158,7 +158,7 @@ describe('ControlResolver', function () {
 		await controlResolver.resolve(zone);
 
 		assert.equal(shouldTriggerControlSpy.callCount, 1);
-		assert.equal(afterZoneLoadSpy.callCount, 0);
+		assert.equal(onInitialControlTriggerSpy.callCount, 0);
 		assert.equal(onZoneShowSpy.callCount, 0);
 		assert.equal(onZoneHideSpy.callCount, 0);
 		assert.deepEqual(shouldTriggerControlSpy.firstCall.args[0], { element, id, isEmpty: false });
@@ -177,7 +177,7 @@ describe('ControlResolver', function () {
 			zone,
 			controlResolver,
 			shouldTriggerControlSpy,
-			afterZoneLoadSpy,
+			onInitialControlTriggerSpy,
 			onZoneShowSpy,
 			onZoneHideSpy,
 			teardown
@@ -188,7 +188,7 @@ describe('ControlResolver', function () {
 		await controlResolver.resolve(zone);
 
 		assert.equal(shouldTriggerControlSpy.callCount, 1);
-		assert.equal(afterZoneLoadSpy.callCount, 0);
+		assert.equal(onInitialControlTriggerSpy.callCount, 0);
 		assert.equal(onZoneShowSpy.callCount, 0);
 		assert.equal(onZoneHideSpy.callCount, 0);
 		assert.deepEqual(shouldTriggerControlSpy.firstCall.args[0], { element, id, isEmpty: false });
@@ -207,7 +207,7 @@ describe('ControlResolver', function () {
 			zone,
 			controlResolver,
 			shouldTriggerControlSpy,
-			afterZoneLoadSpy,
+			onInitialControlTriggerSpy,
 			onZoneShowSpy,
 			onZoneHideSpy,
 			teardown
@@ -219,11 +219,11 @@ describe('ControlResolver', function () {
 		await controlResolver.resolve(zone);
 
 		assert.equal(shouldTriggerControlSpy.callCount, 1);
-		assert.equal(afterZoneLoadSpy.callCount, 1);
+		assert.equal(onInitialControlTriggerSpy.callCount, 1);
 		assert.equal(onZoneShowSpy.callCount, 1);
 		assert.equal(onZoneHideSpy.callCount, 0);
 		assert.deepEqual(shouldTriggerControlSpy.firstCall.args[0], { element, id, isEmpty: false });
-		assert.deepEqual(afterZoneLoadSpy.firstCall.args[0], { element, id, isEmpty: false });
+		assert.deepEqual(onInitialControlTriggerSpy.firstCall.args[0], { element, id, isEmpty: false });
 		assert.equal(zone.isLoaded, true);
 		assert.equal(zone.isVisible, true);
 
@@ -239,7 +239,7 @@ describe('ControlResolver', function () {
 			zone,
 			controlResolver,
 			shouldTriggerControlSpy,
-			afterZoneLoadSpy,
+			onInitialControlTriggerSpy,
 			onZoneShowSpy,
 			onZoneHideSpy,
 			teardown
@@ -251,11 +251,11 @@ describe('ControlResolver', function () {
 		await controlResolver.resolve(zone);
 
 		assert.equal(shouldTriggerControlSpy.callCount, 1);
-		assert.equal(afterZoneLoadSpy.callCount, 1);
+		assert.equal(onInitialControlTriggerSpy.callCount, 1);
 		assert.equal(onZoneShowSpy.callCount, 0);
 		assert.equal(onZoneHideSpy.callCount, 1);
 		assert.deepEqual(shouldTriggerControlSpy.firstCall.args[0], { element, id, isEmpty: false });
-		assert.deepEqual(afterZoneLoadSpy.firstCall.args[0], { element, id, isEmpty: false });
+		assert.deepEqual(onInitialControlTriggerSpy.firstCall.args[0], { element, id, isEmpty: false });
 		assert.equal(zone.isLoaded, true);
 		assert.equal(zone.isVisible, false);
 
@@ -269,7 +269,7 @@ describe('ControlResolver', function () {
 			zone,
 			controlResolver,
 			shouldTriggerControlSpy,
-			afterZoneLoadSpy,
+			onInitialControlTriggerSpy,
 			onZoneShowSpy,
 			onZoneHideSpy,
 			teardown
@@ -281,7 +281,7 @@ describe('ControlResolver', function () {
 		await controlResolver.resolve(zone);
 
 		assert.equal(shouldTriggerControlSpy.callCount, 1);
-		assert.equal(afterZoneLoadSpy.callCount, 1);
+		assert.equal(onInitialControlTriggerSpy.callCount, 1);
 		assert.equal(onZoneShowSpy.callCount, 1);
 		assert.equal(onZoneHideSpy.callCount, 0);
 		assert.equal(zone.isLoaded, true);
@@ -299,7 +299,7 @@ describe('ControlResolver', function () {
 			zone,
 			controlResolver,
 			shouldTriggerControlSpy,
-			afterZoneLoadSpy,
+			onInitialControlTriggerSpy,
 			onZoneShowSpy,
 			onZoneHideSpy,
 			teardown
@@ -313,11 +313,11 @@ describe('ControlResolver', function () {
 		await controlResolver.resolve(zone);
 
 		assert.equal(shouldTriggerControlSpy.callCount, 1);
-		assert.equal(afterZoneLoadSpy.callCount, 1);
+		assert.equal(onInitialControlTriggerSpy.callCount, 1);
 		assert.equal(onZoneShowSpy.callCount, 1);
 		assert.equal(onZoneHideSpy.callCount, 0);
 		assert.deepEqual(shouldTriggerControlSpy.firstCall.args[0], { element, id, isEmpty: false });
-		assert.deepEqual(afterZoneLoadSpy.firstCall.args[0], { element, id, isEmpty: false });
+		assert.deepEqual(onInitialControlTriggerSpy.firstCall.args[0], { element, id, isEmpty: false });
 		assert.equal(zone.isLoaded, true);
 		assert.equal(zone.isVisible, true);
 
@@ -333,7 +333,7 @@ describe('ControlResolver', function () {
 			zone,
 			controlResolver,
 			shouldTriggerControlSpy,
-			afterZoneLoadSpy,
+			onInitialControlTriggerSpy,
 			onZoneShowSpy,
 			onZoneHideSpy,
 			teardown
@@ -347,11 +347,11 @@ describe('ControlResolver', function () {
 		await controlResolver.resolve(zone);
 
 		assert.equal(shouldTriggerControlSpy.callCount, 1);
-		assert.equal(afterZoneLoadSpy.callCount, 1);
+		assert.equal(onInitialControlTriggerSpy.callCount, 1);
 		assert.equal(onZoneShowSpy.callCount, 0);
 		assert.equal(onZoneHideSpy.callCount, 1);
 		assert.deepEqual(shouldTriggerControlSpy.firstCall.args[0], { element, id, isEmpty: false });
-		assert.deepEqual(afterZoneLoadSpy.firstCall.args[0], { element, id, isEmpty: false });
+		assert.deepEqual(onInitialControlTriggerSpy.firstCall.args[0], { element, id, isEmpty: false });
 		assert.equal(zone.isLoaded, true);
 		assert.equal(zone.isVisible, false);
 
@@ -367,7 +367,7 @@ describe('ControlResolver', function () {
 			zone,
 			controlResolver,
 			shouldTriggerControlSpy,
-			afterZoneLoadSpy,
+			onInitialControlTriggerSpy,
 			onZoneShowSpy,
 			onZoneHideSpy,
 			teardown
@@ -397,7 +397,7 @@ describe('ControlResolver', function () {
 			zone,
 			controlResolver,
 			shouldTriggerControlSpy,
-			afterZoneLoadSpy,
+			onInitialControlTriggerSpy,
 			onZoneShowSpy,
 			onZoneHideSpy,
 			teardown
@@ -448,7 +448,7 @@ describe('ControlResolver', function () {
 		assert.equal(onZoneShowSpy.callCount, 1);
 		assert.equal(destroySpyArgs.element, element);
 		assert.equal(destroySpyArgs.id, id);
-		assert.equal(destroySpyArgs.loadResult instanceof Promise, true);
+		assert.equal(destroySpyArgs.initialControlTriggerResult instanceof Promise, true);
 
 		teardown();
 

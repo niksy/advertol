@@ -67,7 +67,7 @@ class ElementClassesControl extends Control {
 		return Promise.resolve(true);
 	}
 
-	afterZoneLoad ({ element, isEmpty }) {
+	onInitialControlTrigger ({ element, isEmpty }) {
 		this.elements.push(element);
 		addClass(element, this.classes.isLoaded);
 		if ( isEmpty ) {

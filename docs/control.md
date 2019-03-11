@@ -14,7 +14,7 @@ When control is added to Advertol instance, it is bound to that instance. If you
 
 Returns: `Promise<boolean>`
 
-Should this control be triggered. If true, continues with executing lifecycle hooks (`afterZoneLoad`, `onZoneShow` and `onZoneHide`), otherwise stops executing control.
+Should this control be triggered. If true, continues with executing lifecycle hooks (`onInitialControlTrigger`, `onZoneShow` and `onZoneHide`), otherwise stops executing control.
 
 After `Promise` is resolved, its value is cached for zone ID and it won’t execute again. Every other call to control instance for particular will use already cached value.
 
@@ -24,13 +24,13 @@ After `Promise` is resolved, its value is cached for zone ID and it won’t exec
 | `id` | `string` | Zone ID. |
 | `isEmpty` | `boolean` | Is zone response empty. |
 
-### afterZoneLoad({ element, id, isEmpty })
+### onInitialControlTrigger({ element, id, isEmpty })
 
 Returns: `Promise<*>`
 
-Execute additional asynchronous code before continuing on to next lifecycle hooks (`onZoneShow` and `onZoneHide`). For example, you can asynchronously load dependencies for particular zone.
+Execute additional asynchronous code on initial control trigger before continuing on to next lifecycle hooks (`onZoneShow` and `onZoneHide`). For example, you can asynchronously load dependencies for particular zone.
 
-After `Promise` is resolved, its value is cached for zone ID and it won’t execute again. Every other call to control instance for particular will use already cached value.
+After `Promise` is resolved, its value is cached for zone ID and it won’t execute again. Every other call to control instance for particular zone ID will use already cached value.
 
 | Property | Type | Description |
 | --- | --- | --- |
@@ -38,7 +38,7 @@ After `Promise` is resolved, its value is cached for zone ID and it won’t exec
 | `id` | `string` | Zone ID. |
 | `isEmpty` | `boolean` | Is zone response empty. |
 
-### onZoneShow({ element, id, loadResult, isEmpty })
+### onZoneShow({ element, id, initialControlTriggerResult, isEmpty })
 
 Lifecycle hook triggered when zone is visible.
 
@@ -46,10 +46,10 @@ Lifecycle hook triggered when zone is visible.
 | --- | --- | --- |
 | `element` | `HTMLElement` | Zone DOM element. |
 | `id` | `string` | Zone ID. |
-| `loadResult` | `*` | `Promise` load result returned from `afterZoneLoad` hook. |
+| `initialControlTriggerResult` | `*` | `Promise` load result returned from `onInitialControlTrigger` hook. |
 | `isEmpty` | `boolean` | Is zone response empty. |
 
-### onZoneHide({ element, id, loadResult, isEmpty })
+### onZoneHide({ element, id, initialControlTriggerResult, isEmpty })
 
 Lifecycle hook triggered when zone is hidden.
 
@@ -57,10 +57,10 @@ Lifecycle hook triggered when zone is hidden.
 | --- | --- | --- |
 | `element` | `HTMLElement` | Zone DOM element. |
 | `id` | `string` | Zone ID. |
-| `loadResult` | `*` | `Promise` load result returned from `afterZoneLoad` hook. |
+| `initialControlTriggerResult` | `*` | `Promise` load result returned from `onInitialControlTrigger` hook. |
 | `isEmpty` | `boolean` | Is zone response empty. |
 
-### destroy({ element, id, loadResult, isEmpty })
+### destroy({ element, id, initialControlTriggerResult, isEmpty })
 
 Lifecycle hook triggered when zone control is destroyed.
 
@@ -68,7 +68,7 @@ Lifecycle hook triggered when zone control is destroyed.
 | --- | --- | --- |
 | `element` | `HTMLElement` | Zone DOM element. |
 | `id` | `string` | Zone ID. |
-| `loadResult` | `*` | `Promise` load result returned from `afterZoneLoad` hook. |
+| `initialControlTriggerResult` | `*` | `Promise` load result returned from `onInitialControlTrigger` hook. |
 | `isEmpty` | `boolean` | Is zone response empty. |
 
 ## Usage
@@ -91,7 +91,7 @@ class HTMLClassesControl extends Control {
 		return Promise.resolve(true);
 	}
 
-	afterZoneLoad ({ element, isEmpty }) {
+	onInitialControlTrigger ({ element, isEmpty }) {
 
 		// Zone is loaded so we add "loaded" class
 		element.classList.add(this.classes.isLoaded);

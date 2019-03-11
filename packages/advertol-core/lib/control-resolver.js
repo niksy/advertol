@@ -45,7 +45,7 @@ class ControlResolver {
 
 			const triggerPromise = memoizePromise({
 				key: id,
-				cache: control._triggerResultsCache,
+				cache: control._shouldTriggerControlCache,
 				result: () => control.shouldTriggerControl({ isEmpty, element, id })
 			});
 
@@ -62,23 +62,23 @@ class ControlResolver {
 
 					const loadPromise = memoizePromise({
 						key: id,
-						cache: control._loadResultsCache,
-						result: () => control.afterZoneLoad({ isEmpty, element, id })
+						cache: control._onInitialControlTriggerCache,
+						result: () => control.onInitialControlTrigger({ isEmpty, element, id })
 					});
 
 					return loadPromise;
 
 				})
-				.then(( loadResult ) => {
+				.then(( initialControlTriggerResult ) => {
 
 					const { isVisible } = zone;
 
 					if ( isInitiallyVisible && isVisible ) {
-						control.onZoneShow({ isEmpty, element, id, loadResult });
+						control.onZoneShow({ isEmpty, element, id, initialControlTriggerResult });
 					}
 
 					if ( !isInitiallyVisible && !isVisible ) {
-						control.onZoneHide({ isEmpty, element, id, loadResult });
+						control.onZoneHide({ isEmpty, element, id, initialControlTriggerResult });
 					}
 
 					return control;
@@ -106,13 +106,13 @@ class ControlResolver {
 
 		this.controls.forEach(( control ) => {
 
-			const loadResults = control._loadResultsCache;
+			const onInitialControlTriggerCache = control._onInitialControlTriggerCache;
 
 			this.zones.forEach(({ element, id, isEmpty }) => {
 
-				const loadResult = loadResults[id] || Promise.resolve();
+				const initialControlTriggerResult = onInitialControlTriggerCache[id] || Promise.resolve();
 
-				control.destroy({ isEmpty, element, id, loadResult });
+				control.destroy({ isEmpty, element, id, initialControlTriggerResult });
 
 			});
 
