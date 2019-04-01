@@ -24,7 +24,7 @@ By default Advertol doesn’t apply any functionality but relies on [core][adver
 
 MIT © [Ivan Nikolić](http://ivannikolic.com)
 
-[advertol-core]: https://github.com/niksy/advertol/tree/master/packages/advertol-core
-[advertol-control-element-classes]: https://github.com/niksy/advertol/tree/master/packages/advertol-control-element-classes
-[advertol-context-media-query]: https://github.com/niksy/advertol/tree/master/packages/advertol-context-media-query
-[advertol-service-google-dfp]: https://github.com/niksy/advertol/tree/master/packages/advertol-service-google-dfp
+[advertol-core]: https://github.com/niksy/advertol-core
+[advertol-control-element-classes]: https://github.com/niksy/advertol-control-element-classes
+[advertol-context-media-query]: https://github.com/niksy/advertol-context-media-query
+[advertol-service-google-dfp]: https://github.com/niksy/advertol-service-google-dfp
