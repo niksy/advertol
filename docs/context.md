@@ -29,7 +29,7 @@ Result of this method is passed on to the next context in array of registered co
 
 In most cases, this method should be left as is. It’s connected to Advertol instance control resolver which calls all other contexts in order and tells them to resolve new visibility state.
 
-You should call this method either when instantiating context instance, or when any asynchronous is completed—for example, this method should be called inside media query listener callback.
+You should call this method either when instantiating context instance, or when any asynchronous operation is completed—for example, this method should be called inside media query listener callback.
 
 ### destroy()
 

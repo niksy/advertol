@@ -38,7 +38,8 @@ const instance = advertol({
 		new GoogleDfpService({
 			zones: [{
 				id: 'becky',
-				slot: () => window.googletag.defineSlot('/0/becky', ['fluid'], 'zone-becky').addService(window.googletag.pubads())
+				adUnitPath: '/42/becky',
+				slot: () => window.googletag.defineSlot('/42/becky', ['fluid'], 'zone-becky').addService(window.googletag.pubads())
 			}]
 		})
 	]
@@ -49,7 +50,7 @@ instance.resolve();
 
 ## API
 
-### googleDfpService({ slots, onSetup, refreshZones })
+### googleDfpService({ zones, onSetup, refreshZones })
 
 #### zones
 
@@ -60,6 +61,7 @@ List of zones with their slot callback.
 | Property | Type | Description |
 | --- | --- | --- |
 | `slot` | `Function` | Function which returns [`googletag.defineSlot`][googletag-define-slot] or [`googletag.defineOutOfPageSlot`][googletag-define-outofpage-slot] instance. |
+| `adUnitPath` | `string` | Full path of the ad unit with the network code and unit code. |
 | `id` | `string` | Zone ID. |
 
 #### onSetup
@@ -82,13 +84,14 @@ Type: `googletag.Slot[]`
 
 List of slots to refresh.
 
-### instance.addZone({ slot, id })
+### instance.addZone({ slot, adUnitPath, id })
 
 Add new zone with slot callback.
 
 | Property | Type | Description |
 | --- | --- | --- |
 | `slot` | `Function` | Function which returns [`googletag.defineSlot`][googletag-define-slot] or [`googletag.defineOutOfPageSlot`][googletag-define-outofpage-slot] instance. |
+| `adUnitPath` | `string` | Full path of the ad unit with the network code and unit code. |
 | `id` | `string` | Zone ID. |
 
 ## Browser support

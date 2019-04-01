@@ -6,6 +6,7 @@ class GoogleDfpService extends Service {
 		super();
 
 		this.slots = {};
+		this.adUnitPaths = {};
 		this.filledZoneCallbacks = {};
 		this.emptyZoneCallbacks = {};
 		this.resolvedSlots = {};
@@ -22,8 +23,8 @@ class GoogleDfpService extends Service {
 
 		this.refreshZones = refreshZones.bind(this);
 
-		zones.forEach(({ id, slot }) => {
-			this.addZone({ id, slot });
+		zones.forEach(({ id, adUnitPath, slot }) => {
+			this.addZone({ id, adUnitPath, slot });
 		});
 
 		/* istanbul ignore next */
@@ -37,13 +38,15 @@ class GoogleDfpService extends Service {
 
 	/**
 	 * @param {string}   id
+	 * @param {string}   adUnitPath
 	 * @param {Function} callback
 	 */
-	addZone ({ id, slot }) {
-		if ( id in this.slots ) {
+	addZone ({ id, adUnitPath, slot }) {
+		if ( id in this.slots && id in this.adUnitPaths ) {
 			return;
 		}
 		this.slots[id] = slot;
+		this.adUnitPaths[id] = adUnitPath;
 	}
 
 	/**
@@ -81,20 +84,20 @@ class GoogleDfpService extends Service {
 
 		window.googletag.pubads().addEventListener('slotRenderEnded', ( data ) => {
 
-			const zoneName = data.slot.getAdUnitPath();
-			const zoneResponse = data.slot.getResponseInformation();
+			const adUnitPath = data.slot.getAdUnitPath();
+			const response = data.slot.getResponseInformation();
 
 			const callback =
-				this.isZoneEmpty(zoneResponse) ?
-					this.emptyZoneCallbacks[zoneName] :
-					this.filledZoneCallbacks[zoneName];
+				this.isZoneEmpty(response) ?
+					this.emptyZoneCallbacks[adUnitPath] :
+					this.filledZoneCallbacks[adUnitPath];
 
 			if ( typeof callback === 'function' ) {
 				callback();
 			}
 
-			delete this.filledZoneCallbacks[zoneName];
-			delete this.emptyZoneCallbacks[zoneName];
+			delete this.filledZoneCallbacks[adUnitPath];
+			delete this.emptyZoneCallbacks[adUnitPath];
 
 		});
 
@@ -187,8 +190,9 @@ class GoogleDfpService extends Service {
 
 		return new Promise(( resolve ) => {
 
-			this.filledZoneCallbacks[id] = () => resolve(true);
-			this.emptyZoneCallbacks[id] = () => resolve(false);
+			const adUnitPath = this.adUnitPaths[id];
+			this.filledZoneCallbacks[adUnitPath] = () => resolve(true);
+			this.emptyZoneCallbacks[adUnitPath] = () => resolve(false);
 
 			this.cmd(() => {
 
