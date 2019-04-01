@@ -9,11 +9,13 @@ module.exports = {
 	output: [
 		{
 			file: 'index.cjs.js',
-			format: 'cjs'
+			format: 'cjs',
+			sourcemap: true
 		},
 		{
 			file: 'index.esm.js',
-			format: 'esm'
+			format: 'esm',
+			sourcemap: true
 		}
 	],
 	plugins: [

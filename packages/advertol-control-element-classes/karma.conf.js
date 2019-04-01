@@ -13,7 +13,10 @@ if ( local ) {
 	};
 } else {
 	config = {
+		hostname: 'bs-local.com',
 		browserStack: {
+			username: process.env.BROWSER_STACK_USERNAME,
+			accessKey: process.env.BROWSER_STACK_ACCESS_KEY,
 			startTunnel: true,
 			project: '@advertol/control-element-classes',
 			name: 'Automated (Karma)',
